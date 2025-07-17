@@ -61,3 +61,4 @@ Cypress.Commands.add('waitForOptionalRequest', (alias, waitForRequestMs = 5000) 
   // Start polling
   return poll();
 });
+
