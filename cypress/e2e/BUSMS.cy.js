@@ -1,5 +1,5 @@
 const { readExcelData } = require('../support/readExcel.js'); // Node-style import
-//import LoginPage from '../BUltimus/LogIn.js'; // ES Module import
+//import LoginPage from '../../BUltimus/LogIn.js'; // ES Module import
 import userinfo from '../BUltimus/DefineUser.js';
 import UserinfoAuth from '../BUltimus/GoToAuthPageUI.js';
 import authuser from '../BUltimus/AuthorizeUser.js';
