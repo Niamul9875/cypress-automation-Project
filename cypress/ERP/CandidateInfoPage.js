@@ -234,29 +234,12 @@ class CandidateInfoPage {
         const src = $img.attr('src');
         expect(src).to.include('data:image');
       });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //Email
+      
+    ///Email
     cy.get('common-input-field[controlname="personalEmail"] input')
       .clear()
       .type('user@example.com');
-
-
-
-
-    // Step 1: Type a valid Bangladeshi mobile number
+// Step 1: Type a valid Bangladeshi mobile number
     cy.get('common-input-field[controlname="personalMobileNo"] input')
       .clear({ force: true })  // Optional: Clear field if needed
       .type('01712345678', { force: true }); // Use a valid 11-digit BD number
