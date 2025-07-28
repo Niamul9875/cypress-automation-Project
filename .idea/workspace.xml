@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f5d0eb72-6fa6-4de3-92b1-51a72af9021d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/BUSMS.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/BUSMS.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/GB/CIF_Individual.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/GB/CIF_Individual.cy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/GB/CIF_Organization.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/GB/CIF_Organization.cy.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "avisheak"
+  }
+}]]></component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "feature/Avishek",
+    "settings.editor.selected.configurable": "terminal"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
