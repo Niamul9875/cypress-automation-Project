@@ -23,7 +23,9 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+feature/Niamul
 import 'cypress-file-upload';
+ main
 Cypress.Commands.add('getIframeBody', (selector) => {
   return cy
     .get(selector)

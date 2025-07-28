@@ -15,3 +15,15 @@ npm-debug.log*
 Thumbs.db
 
 
+cypress/BankUltimus/Common/DepositAccBeneficiaryPage.js
+cypress/BankUltimus/Common/DepositAccNomineePage.js
+cypress/BankUltimus/Deposit/TimeDepositAccOpenPage.js
+cypress/BankUltimus/Deposit/TimeDepositTransferTransPage.js
+cypress/BankUltimus/Finance/Lon_AccountOpenPage.js
+cypress/BankUltimus/Finance/Lon_CommitmentPortfolioRegisterPage.js
+cypress/BankUltimus/Finance/Lon_FinancingApprovalPage.js
+cypress/e2e/Deposit/DemandDeposit.cy.js
+cypress/e2e/Deposit/SchemeDeposit.cy.js
+cypress/e2e/Deposit/TimeDeposit.cy.js
+cypress/e2e/Financial/FinanceProduct.cy.js
+cypress/e2e/Financial/test.cy.js
