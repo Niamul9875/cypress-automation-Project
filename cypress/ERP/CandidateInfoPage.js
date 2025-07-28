@@ -3,7 +3,7 @@ class CandidateInfoPage {
 
   CandidateInfo() {
 
-    cy.visit('http://192.168.10.36:4600/candidate-portal/info');
+   cy.visit('http://192.168.10.36:4600/candidate-portal/info');
 
     // Fill Full Name (English)
     cy.get('common-input-field[controlname="fullNameEnglish"] input')
@@ -91,27 +91,27 @@ class CandidateInfoPage {
 
 
 
-
-    // Step 1: Open the Religion dropdown by controlname attribute selector
+    // Open dropdown
     cy.get('common-mat-select[controlname="religion"] mat-select').click({ force: true });
-    // Step 2: Wait for the options to be visible (timeout দিয়ে)
-    cy.get('mat-option', { timeout: 10000 }).should('be.visible', { force: true });
-    // Step 3: Select option 'Islam' 
-    cy.get('mat-option').contains('Islam').click({ force: true });
-    // Step 4: Verify the selected option text shows in dropdown
+
+    // Wait for options to be visible
+    cy.get('div[role="listbox"] mat-option', { timeout: 10000 }).should('have.length.greaterThan', 0);
+
+    // Log all options text for debugging
+    cy.get('div[role="listbox"] mat-option').then($options => {
+      const optionTexts = [...$options].map(o => o.innerText.trim());
+      cy.log('Options:', optionTexts);
+      console.log('Options:', optionTexts);
+    });
+
+    // Select option 'Islam' carefully
+    cy.get('div[role="listbox"] mat-option').filter((index, el) => el.innerText.trim() === 'Islam').click({ force: true });
+
+    // Verify selection
     cy.get('common-mat-select[controlname="religion"] mat-select .mat-mdc-select-value-text')
       .should('contain.text', 'Islam');
-
-
-
-
-
-
-
-
-
-
-    cy.get('common-input-field[controlname="nationalIdNo"] input')
+      
+cy.get('common-input-field[controlname="nationalIdNo"] input')
       .clear() // Optional: if you want to clear previous text
       .type('1234567890'); // Your NID value
 
@@ -142,86 +142,7 @@ class CandidateInfoPage {
       .should('be.visible')
       .clear()
       .type('29-07-2030', { force: true }); // DD-MM-YYYY format based on placeholder
-
-
-
-
-
-
-    //     const imagePath2 = 'sample2.jpg';
-
-    // // ফাইল ইনপুটে ছবি attach করুন
-    // cy.get('input[type="file"]').attachFile(imagePath2);
-    // // splash screen visibility hidden হওয়া পর্যন্ত অপেক্ষা করুন
-    // cy.get('fuse-splash-screen', { timeout: 15000 }).should('have.css', 'visibility', 'hidden');
-    // // এরপর ইমেজ ভিজিবিলিটি চেক করুন (যদি splash screen পুরো DOM এ থাকে, তাহলে force:true দিতে পারেন)
-    // cy.get('img', { timeout: 10000 }).should('be.visible',{ force: true });
-    // // src প্রপার্টি যাচাই করুন
-    // cy.get('img').each(($img) => {
-    //   const src = $img.attr('src');
-    //   expect(src).to.match(/^data:image/);
-    // });
-
-
-    // const imagePath2 = 'sample2.jpg';
-    //     cy.get('input[type="file"]').attachFile(imagePath2);
-    //     cy.wait(1000);
-
-    //     // Check by preview type
-    //     cy.get('img').each(($img) => {
-    //       const src = $img.attr('src');
-    //       if (src && src.startsWith('data:image')) {
-    //         expect(src).to.include('data:image');
-    //       }
-    //     });
-
-
-    // 
-
-
-
-
-    // cy.get('input[type="file"]').attachFile('sample2.jpg');
-
-    // cy.get('div.max-w-xs img', { timeout: 10000 })
-    //   .should('have.attr', 'src')
-    //   .and('include', 'data:image');
-
-
-
-
-    // cy.get('div.max-w-xs img', { timeout: 10000 }).then(($img) => {
-    //   if ($img.is(':visible')) {
-    //     cy.wrap($img).should('be.visible');
-    //     cy.wrap($img).invoke('attr', 'src').should('include', 'data:image');
-    //   } else {
-    //     cy.log(' Image not visible, checking src anyway');
-    //     const src = $img.attr('src');
-    //     expect(src).to.include('data:image');
-    //   }
-    // });
-
-
-
-    // // Upload NID image
-    // cy.get('input[type="file"][accept="image/*"]').attachFile('sample2.jpg');
-
-    // // Force Angular to detect change
-    // cy.get('input[type="file"][accept="image/*"]').trigger('change', { force: true });
-
-    // // Wait for preview to show
-    // cy.get('div.max-w-xs img', { timeout: 10000 })
-    //   .should('be.visible')
-    //   .and(($img) => {
-    //     const src = $img.attr('src');
-    //     expect(src).to.include('data:image');
-    //   });
-
-    // // Optional: wait to let Angular update internal form state
-    // cy.wait(1000);
-
-
-    // Just upload the NID image
+// Just upload the NID image
     cy.get('input[type="file"][accept="image/*"]').eq(1).attachFile('sample2.jpg');
 
     // Manually trigger change for Angular to detect
@@ -234,12 +155,12 @@ class CandidateInfoPage {
         const src = $img.attr('src');
         expect(src).to.include('data:image');
       });
-      
+
     ///Email
     cy.get('common-input-field[controlname="personalEmail"] input')
       .clear()
       .type('user@example.com');
-// Step 1: Type a valid Bangladeshi mobile number
+    // Step 1: Type a valid Bangladeshi mobile number
     cy.get('common-input-field[controlname="personalMobileNo"] input')
       .clear({ force: true })  // Optional: Clear field if needed
       .type('01712345678', { force: true }); // Use a valid 11-digit BD number
