@@ -33,6 +33,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+<<<<<<< HEAD
 
             bat 'npx cypress run --spec "cypress/e2e/GB/CIF_Organization.cy.js"'
              // Run your custom Cypress runner script
@@ -40,6 +41,12 @@ pipeline {
             //bat 'npx cypress run --spec "cypress/e2e/BU.cy.js"'
              // Run your custom Cypress runner script
              // bat 'node runInOrder.js'
+=======
+            //bat 'npx cypress run --spec "cypress/e2e/CenterPoint/ERP.cy.js"'
+            bat 'npx cypress run --spec "cypress/e2e/GB/CIF_Organization.cy.js"'
+             // Run your custom Cypress runner script
+              //bat 'node runInOrder.js'
+>>>>>>> 034092edd0f9bdaa74b7ff7b39f0613ad8714580
           }
         }
       }

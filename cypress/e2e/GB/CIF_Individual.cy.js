@@ -5,6 +5,11 @@ import CIFInfo from '../../BUltimus/CIF_Individual_Info.js'
 import DoLogOut from '../../BUltimus/LogOut.js';
 import AuthorizeCustomer from '../../BUltimus/AuthorizeCustomer.js';
 import CustomerInquiry from '../../BUltimus/CustomerInquiry.js';
+<<<<<<< HEAD
+=======
+feature/Niamul
+ main
+>>>>>>> 034092edd0f9bdaa74b7ff7b39f0613ad8714580
 
 describe('Login Test Using Excel Data', () => {
 

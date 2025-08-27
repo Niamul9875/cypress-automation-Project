@@ -24,10 +24,13 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
+<<<<<<< HEAD
  
   
 
  
+=======
+>>>>>>> 034092edd0f9bdaa74b7ff7b39f0613ad8714580
 Cypress.Commands.add('getIframeBody', (selector) => {
   return cy
     .get(selector)
