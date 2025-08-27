@@ -44,7 +44,7 @@ pipeline {
           //  env.SPEC_FILES = "cypress/e2e/Deposit/SchemeDeposit.cy.js"
           //  env.SPEC_FILES = "cypress/e2e/Deposit/SchemeDepositCashTrans.cy.js"
 
-           bat "npx cypress run --spec \"${env.SPEC_FILE}\""
+           bat "npx cypress run --spec \"${env.SPEC_FILES}\""
 
             
 
@@ -67,7 +67,7 @@ pipeline {
       steps {
         script {
            // Extract only the spec filename without path
-      def specName = env.SPEC_FILE.tokenize('/\\').last()  // DemandDeposit.cy.js
+      def specName = env.SPEC_FILES.tokenize('/\\').last()  // DemandDeposit.cy.js
       def videoFileName = "${specName}.mp4"                // DemandDeposit.cy.js.mp4
       def videoFile = "${env.VIDEO_DIR}\\${videoFileName}"
       def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/${videoFileName}"
@@ -101,7 +101,7 @@ post {
   always {
     script {
       // Extract only the spec filename (e.g. DemandDeposit.cy.js)
-      def specName = env.SPEC_FILE?.tokenize('/\\')?.last() ?: "Unknown_Spec"
+      def specName = env.SPEC_FILES?.tokenize('/\\')?.last() ?: "Unknown_Spec"
       emailext (
         subject: "✅ Cypress Report - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
         body: """
