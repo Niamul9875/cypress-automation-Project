@@ -33,7 +33,7 @@ pipeline {
         script {
           catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
             // define which spec to run
-            env.SPEC_FILE = "cypress/e2e/Deposit/DemandDeposit.cy.js"
+            env.SPEC_FILE = "cypress/e2e/Deposit/TimeDeposit.cy.js"
             // run Cypress
             bat "npx cypress run --spec \"${env.SPEC_FILE}\""
 
