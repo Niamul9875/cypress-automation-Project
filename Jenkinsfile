@@ -63,26 +63,21 @@ pipeline {
       }
     }
 
-    stage('Upload Videos to Google Drive') {
-      steps {
-        script {
-           // Extract only the spec filename without path
-      def specName = env.SPEC_FILES.tokenize('/\\').last()  // DemandDeposit.cy.js
+   stage('Upload Videos to Google Drive') {
+  steps {
+    script {
+      // Extract only the spec filename without path
+      def specName = env.SPEC_FILE.tokenize('/\\').last()  // DemandDeposit.cy.js
       def videoFileName = "${specName}.mp4"                // DemandDeposit.cy.js.mp4
       def videoFile = "${env.VIDEO_DIR}\\${videoFileName}"
       def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/${videoFileName}"
 
       bat "dir \"${env.VIDEO_DIR}\""
       bat "\"${env.RCLONE_PATH}\" copyto \"${videoFile}\" \"${remoteFile}\""
-            }
-          // def videoFile = "${env.VIDEO_DIR}\\CIF_Organization.cy.js.mp4"
-          // def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/CIF_Organization.cy.js.mp4"
-          // // Optional: list files to verify existence before upload
-          // bat "dir \"${env.VIDEO_DIR}\""
-          // bat "\"${env.RCLONE_PATH}\" copyto \"${videoFile}\" \"${remoteFile}\""
-        }
-      }
     }
+  }
+}
+
 
     stage('Get Shareable Links') {
       steps {
