@@ -71,7 +71,7 @@ pipeline {
   post {
     always {
       script {
-        // Extract only the spec filename (e.g. DemandDeposit.cy.js)
+        // Extract  only the spec filename (e.g. DemandDeposit.cy.js)
         def specName = env.SPEC_FILE?.tokenize('/\\')?.last() ?: "Unknown_Spec"
         emailext(
           subject: "✅ Cypress Report - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
