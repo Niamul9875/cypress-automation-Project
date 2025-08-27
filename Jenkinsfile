@@ -36,6 +36,7 @@ pipeline {
             env.SPEC_FILE = "cypress/e2e/Deposit/DemandDeposit.cy.js"
             // run Cypress
             bat "npx cypress run --spec \"${env.SPEC_FILE}\""
+
           }
         }
       }
@@ -52,6 +53,7 @@ pipeline {
 
           bat "dir \"${env.VIDEO_DIR}\""
           bat "\"${env.RCLONE_PATH}\" copyto \"${videoFile}\" \"${remoteFile}\""
+
         }
       }
     }
