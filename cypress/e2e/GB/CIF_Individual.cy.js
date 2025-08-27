@@ -6,9 +6,6 @@ import DoLogOut from '../../BUltimus/LogOut.js';
 import AuthorizeCustomer from '../../BUltimus/AuthorizeCustomer.js';
 import CustomerInquiry from '../../BUltimus/CustomerInquiry.js';
 
-
-
-
 describe('Login Test Using Excel Data', () => {
 
   const loginPage = new LoginPage();
