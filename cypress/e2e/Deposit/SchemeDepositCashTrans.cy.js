@@ -5,7 +5,7 @@ import MenuSearch from '../../BankUltimus/Common/MenuSearchPage'; // ES Module i
 import SchemeDepositAccOpen from '../../BankUltimus/Deposit/SchemeDepositAccOpenPage'; // ES Module import 
 import LogoutPage from '../../BankUltimus/Common/LogoutPage'; // ES Module import
 import NFTAuthorize from '../../BankUltimus/Common/NFTAuthorizeQueuePage'; // ES Module import
-import SchemeDepositTrfTrans from '../../BankUltimus/Deposit/SchemeDepositTransferTransPage';
+import SchemeDepositCshTrans from '../../BankUltimus/Deposit/SchemeDepositCashTransPage';
 import TransAuth from '../../BankUltimus/Common/TransactionAuthorizePage'; // ES Module import
 import AccInquary from '../../BankUltimus/Common/DepositAccountBalanceInquaryPage'; // ES Module import
 import DepositAccNominee from '../../BankUltimus/Common/DepositAccNomineePage'; // ES Module import
@@ -151,7 +151,7 @@ describe('Bank Ultimus', () => {
         const loginPage = new LoginPage();
         const menuSearch = new MenuSearch();
         const nftAuthorize = new NFTAuthorize();
-        const sdtrfTrans = new SchemeDepositTrfTrans();
+        const sdCshTrans = new SchemeDepositCshTrans();
         // const sdAccOpen = new SchemeDepositAccOpen();
         const logoutPage = new LogoutPage();
         //Login with valid Maker User ID
@@ -185,7 +185,7 @@ describe('Bank Ultimus', () => {
             fileName: 'loginData3.xlsx',
             sheetName: 'MenuSearch'
         }).then((dataMenuSearch) => {
-            Cypress.env('excelData', dataMenuSearch[11]); // Use first row
+            Cypress.env('excelData', dataMenuSearch[20]); // Use first row
             menuSearch.menu();
         });
 
@@ -194,9 +194,9 @@ describe('Bank Ultimus', () => {
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'SDTrans'
-        }).then((datasdtrfTrans) => {
-            Cypress.env('excelData', datasdtrfTrans[0]); // Use first row
-            sdtrfTrans.SDtrfTrans();
+        }).then((datasdCshTrans) => {
+            Cypress.env('excelData', datasdCshTrans[0]); // Use first row
+            sdCshTrans.SDCashTrans();
         });
 
         logoutPage.Logout();//logout maker user

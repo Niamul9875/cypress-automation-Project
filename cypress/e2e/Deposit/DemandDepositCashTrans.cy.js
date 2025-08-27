@@ -1,21 +1,22 @@
-
 const { readExcelData } = require('../../support/readExcel.js'); // Node-style import
 import LoginPage from '../../BankUltimus/Common/LoginPage'; // ES Module import
 import MenuSearch from '../../BankUltimus/Common/MenuSearchPage'; // ES Module import
-import SchemeDepositAccOpen from '../../BankUltimus/Deposit/SchemeDepositAccOpenPage'; // ES Module import 
+import DemandDepositAccOpen from '../../BankUltimus/Deposit/DemandDepositAccOpenPage'; // ES Module import 
 import LogoutPage from '../../BankUltimus/Common/LogoutPage'; // ES Module import
 import NFTAuthorize from '../../BankUltimus/Common/NFTAuthorizeQueuePage'; // ES Module import
-import SchemeDepositTrfTrans from '../../BankUltimus/Deposit/SchemeDepositTransferTransPage';
 import TransAuth from '../../BankUltimus/Common/TransactionAuthorizePage'; // ES Module import
 import AccInquary from '../../BankUltimus/Common/DepositAccountBalanceInquaryPage'; // ES Module import
 import DepositAccNominee from '../../BankUltimus/Common/DepositAccNomineePage'; // ES Module import
 import DepositAccBeneficiary from '../../BankUltimus/Common/DepositAccBeneficiaryPage'; // ES Module import
+import DDCashTrans from '../../BankUltimus/Deposit/DemandDepositCashTransPage'; // ES Module import
 describe('Bank Ultimus', () => {
-    it('Step 1: Scheme Deposit Account Open', function () {
+
+    it('Step 1: Demand Deposit Account Open', function () {
         const loginPage = new LoginPage();
         const menuSearch = new MenuSearch();
-        const sdAccOpen = new SchemeDepositAccOpen();
+        const ddAccOpen = new DemandDepositAccOpen();
         const logoutPage = new LogoutPage();
+
         //Login with valid Maker User ID
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
@@ -30,27 +31,29 @@ describe('Bank Ultimus', () => {
             fileName: 'loginData3.xlsx',
             sheetName: 'MenuSearch'
         }).then((dataMenuSearch) => {
-            Cypress.env('excelData', dataMenuSearch[8]); // Use first row
+            Cypress.env('excelData', dataMenuSearch[0]); // Use first row
             menuSearch.menu();
         });
         // Fill up all information at 2001
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
-            sheetName: 'SDAccOpen'
-        }).then((dataSDAccOpen) => {
-            Cypress.env('excelData', dataSDAccOpen[0]); // Use first row
-            sdAccOpen.SDAccOpen();
+            sheetName: 'DDAccOpen'
+
+        }).then((dataDDAccOpen) => {
+            Cypress.env('excelData', dataDDAccOpen[0]); // Use first row
+            ddAccOpen.DDAccOpen();
         });
         logoutPage.Logout();//logout maker user   
-
     });
-    it('Step 2: Scheme Deposit Account Authorize & Add Nominee', function () {
+    it('Step 2: Demand Deposit Account Authorize & Add Nominee', function () {
         const loginPage = new LoginPage();
         const menuSearch = new MenuSearch();
         const nftAuthorize = new NFTAuthorize();
-        const accNominee = new DepositAccNominee();
+        //const ddtrfTrans = new DDTrfTrans();
         const logoutPage = new LogoutPage();
-        //Login with valid Maker User ID
+        const accNominee = new DepositAccNominee();
+
+        //Login with valid Checker User ID
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'Login'
@@ -58,21 +61,20 @@ describe('Bank Ultimus', () => {
             Cypress.env('excelData', dataLogin[1]); // Use first row
             loginPage.Login();
         });
-
         //Go to NFTAuthQueue Page (FP: 8002)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'MenuSearch'
         }).then((dataMenuSearch) => {
-            Cypress.env('excelData', dataMenuSearch[1]); // Use first row
+            Cypress.env('excelData', dataMenuSearch[1]); // Use 2nd row
             menuSearch.menu();
         });
-        // Authoriza Page (FP: 2001)
+        // Authoriza DD Account (FP: 8002)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'NftAuth'
         }).then((dataNftAuth) => {
-            Cypress.env('excelData', dataNftAuth[2]); // Use first row
+            Cypress.env('excelData', dataNftAuth[0]); // Use first row
             nftAuthorize.NftAuth();
         });
         //=========Nominee Information===========
@@ -92,17 +94,17 @@ describe('Bank Ultimus', () => {
             Cypress.env('excelData', dataddtrfTrans[0]); // Use first row
             accNominee.nominee();
         });
-        logoutPage.Logout();//logout maker user      
+        logoutPage.Logout();//logout maker user
 
     });
     it('Step 3: Nominee Authorize & Add Beneficiary', function () {
         const loginPage = new LoginPage();
         const menuSearch = new MenuSearch();
         const nftAuthorize = new NFTAuthorize();
+        const logoutPage = new LogoutPage();
         const accBeneficiary = new DepositAccBeneficiary();
 
-        const logoutPage = new LogoutPage();
-        //Login with valid Maker User ID
+        //Login with valid Checker User ID
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'Login'
@@ -110,16 +112,15 @@ describe('Bank Ultimus', () => {
             Cypress.env('excelData', dataLogin[0]); // Use first row
             loginPage.Login();
         });
-
         //Go to NFTAuthQueue Page (FP: 8002)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'MenuSearch'
         }).then((dataMenuSearch) => {
-            Cypress.env('excelData', dataMenuSearch[1]); // Use first row
+            Cypress.env('excelData', dataMenuSearch[1]); // Use 2nd row
             menuSearch.menu();
         });
-        // Authoriza Page (FP: 2001)
+        // Authoriza Nominee (FP: 8002)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'NftAuth'
@@ -145,16 +146,15 @@ describe('Bank Ultimus', () => {
             accBeneficiary.beneficiary();
         });
         logoutPage.Logout();//logout maker user
-
     });
     it('Step 4: Beneficiary Authorize & Transaction', function () {
         const loginPage = new LoginPage();
         const menuSearch = new MenuSearch();
         const nftAuthorize = new NFTAuthorize();
-        const sdtrfTrans = new SchemeDepositTrfTrans();
-        // const sdAccOpen = new SchemeDepositAccOpen();
+        const ddCashTrans = new DDCashTrans();
         const logoutPage = new LogoutPage();
-        //Login with valid Maker User ID
+
+        //Login with valid Checker User ID
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'Login'
@@ -162,16 +162,15 @@ describe('Bank Ultimus', () => {
             Cypress.env('excelData', dataLogin[1]); // Use first row
             loginPage.Login();
         });
-
         //Go to NFTAuthQueue Page (FP: 8002)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'MenuSearch'
         }).then((dataMenuSearch) => {
-            Cypress.env('excelData', dataMenuSearch[1]); // Use first row
+            Cypress.env('excelData', dataMenuSearch[1]); // Use 2nd row
             menuSearch.menu();
         });
-        // Authoriza Page (FP: 2001)
+        // Authoriza Beneficiary (FP: 8002)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'NftAuth'
@@ -180,34 +179,35 @@ describe('Bank Ultimus', () => {
             nftAuthorize.NftAuth();
         });
 
-        //Go to TDTrfTransaction Page (FP: 7032)
+        //Go to DDCashTransaction Page (FP: 7001)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'MenuSearch'
         }).then((dataMenuSearch) => {
-            Cypress.env('excelData', dataMenuSearch[11]); // Use first row
+            Cypress.env('excelData', dataMenuSearch[6]); // Use first row
             menuSearch.menu();
         });
 
-        //ddtrfTrans.DDtrfTrans();
-        //Make SDTrfTransaction (FP: 7032)
+        //ddtrfTrans.DDCashTrans();
+        //Make DDCashTransaction (FP: 7001)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
-            sheetName: 'SDTrans'
-        }).then((datasdtrfTrans) => {
-            Cypress.env('excelData', datasdtrfTrans[0]); // Use first row
-            sdtrfTrans.SDtrfTrans();
+            sheetName: 'DDTrans'
+        }).then((dataddCashTrans) => {
+            Cypress.env('excelData', dataddCashTrans[0]); // Use first row
+            ddCashTrans.DDCashTrans();
         });
 
-        logoutPage.Logout();//logout maker user
 
+        logoutPage.Logout();//logout maker user 
     });
     it('Step 5: Transaction Authorization & Balance Inquary', function () {
         const loginPage = new LoginPage();
         const menuSearch = new MenuSearch();
         const transAuth = new TransAuth();
         const accInquary = new AccInquary();
-        //Login with valid Maker User ID
+
+        //Login with valid Checker User ID
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'Login'
@@ -224,22 +224,141 @@ describe('Bank Ultimus', () => {
             Cypress.env('excelData', dataMenuSearch[3]); // Use first row
             menuSearch.menu();
         });
+
         // Transaction Authorize (FP: 8001)
         transAuth.TransAuth();
-        //const menuSearch = new MenuSearch();
-        //Go to Account Inquary page (FP: 2013)
+        //Go to DD Account Balance Inquary page (FP: 2011)
         cy.task('readExcel', {
             fileName: 'loginData3.xlsx',
             sheetName: 'MenuSearch'
         }).then((dataMenuSearch) => {
-            Cypress.env('excelData', dataMenuSearch[12]); // Use first row
+            Cypress.env('excelData', dataMenuSearch[4]); // Use first row
             menuSearch.menu();
         });
-        //demand deposit account inquary 
+        //demand deposit account Balance inquary 
         accInquary.AccInquary();
 
-
     });
+})
 
 
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

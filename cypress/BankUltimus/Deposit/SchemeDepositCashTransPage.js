@@ -1,13 +1,13 @@
-class DemandDepositCashTrans {
+class SchemeDepositCashTrans {
 
-    DDCashTrans() {
-
-
-        const dataDDCashTrans = Cypress.env('excelData');
-        cy.intercept('POST', 'http://192.168.10.199/BankUltimus/BU_Trans/CorCashTransDDUI.aspx?FUNCTION_ID=0125001&FAST_PATH=7001').as('formReload');
+    SDCashTrans() {
 
 
-        cy.log('DD Cash Transaction Page');
+        const dataSDCashTrans = Cypress.env('excelData');
+        //cy.intercept('POST', 'http://192.168.10.199/BankUltimus/BU_Trans/CorCashTransDDUI.aspx?FUNCTION_ID=0125001&FAST_PATH=7001').as('formReload');
+
+
+        cy.log('Scheme Deposit Cash Transaction Page');
 
         //------use this block for dynamically use acc no. 
         cy.then(() => {
@@ -21,7 +21,7 @@ class DemandDepositCashTrans {
 
         
         //#ctl00_contPlcHdrMasterHolder_LstxtAccNo
-        //cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccNo').focus().clear().type(dataDDCashTrans.Acc_no).type('{enter}');
+       // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccNo').focus().clear().type(dataSDCashTrans.Acc_no).type('{enter}');
         //cy.wait('@formReload');
         //cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccNo').clear().type(dataDDCashTrans.AccNo + '{enter}');
 
@@ -31,13 +31,13 @@ class DemandDepositCashTrans {
         // cy.wait('@formReload');       //intercept Post Request call
         // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlDrCr').focus().select(dataDDCashTrans.DrCr);
 
-        cy.wait(3000);
+        //cy.wait(3000);
         // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlDrCr').focus().blur();
         // cy.wait('@formReload');
         // cy.get('#ctl00_contPlcHdrMasterHolder_LstxTransAmtCcy').clear();
          cy.wait(3000);
         cy.get('#ctl00_contPlcHdrMasterHolder_LstxTransAmtCcy').clear();
-        cy.get('#ctl00_contPlcHdrMasterHolder_LstxTransAmtCcy').type(dataDDCashTrans.amount).type('{enter}');
+        cy.get('#ctl00_contPlcHdrMasterHolder_LstxTransAmtCcy').type(dataSDCashTrans.amount).type('{enter}');
         //cy.get('#ctl00_contPlcHdrMasterHolder_LstxTransAmtCcy').focus().clear().type(dataDDCashTrans.amount);
         // cy.wait(3000);
         // cy.get('#ctl00_contPlcHdrMasterHolder_LstxTransAmtCcy').focus().type(dataDDCashTrans.Amount);
@@ -46,11 +46,11 @@ class DemandDepositCashTrans {
         cy.wait(3000);
 
         cy.get('#ctl00_contPlcHdrMasterHolder_LstxtNarration').clear();
-        cy.get('#ctl00_contPlcHdrMasterHolder_LstxtNarration').type(dataDDCashTrans.narration).type('{enter}');
+        cy.get('#ctl00_contPlcHdrMasterHolder_LstxtNarration').type(dataSDCashTrans.narration).type('{enter}');
         cy.wait(3000);
         cy.get('#ctl00_contPlcHdrMasterHolder_lsddlDepositorBeareType').focus().blur();
         //cy.wait('@formReload');       //intercept Post Request call
-        cy.get('#ctl00_contPlcHdrMasterHolder_lsddlDepositorBeareType').focus().select(dataDDCashTrans.beare_type, { force: true });
+        cy.get('#ctl00_contPlcHdrMasterHolder_lsddlDepositorBeareType').focus().select(dataSDCashTrans.beare_type, { force: true });
 
         cy.wait(3000);
         cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
@@ -85,4 +85,4 @@ class DemandDepositCashTrans {
     }
 }
 
-export default DemandDepositCashTrans;
+export default SchemeDepositCashTrans;

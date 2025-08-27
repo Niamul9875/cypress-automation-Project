@@ -6,9 +6,17 @@ class TransactionAuthorizationPage {
         cy.intercept('POST', '/BankUltimus/src/BankUltimus.UI/BU_Trans/CorTransAuthorizationUI.aspx?FUNCTION_ID=0127001&FAST_PATH=8001').as('formReload');
 
         //Select Transaction Mode-Transfer
-        cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTransMode').select('Transfer').blur();
-        cy.wait('@formReload');       //intercept Post Request call
-        cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTransMode').focus().select('Transfer', { force: true });
+        cy.log('Transaction Mode:', Cypress.env('transMode'));
+        if (Cypress.env('transMode') !== 'Cash') {
+            cy.log('Selecting Transfer mode...');
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTransMode').select('Transfer').blur();
+            cy.wait('@formReload');
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTransMode').focus().select('Transfer', { force: true });
+        }
+
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTransMode').select('Transfer').blur();
+        // cy.wait('@formReload');       //intercept Post Request call
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTransMode').focus().select('Transfer', { force: true });
 
         // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTransMode')
         //     .invoke('val')

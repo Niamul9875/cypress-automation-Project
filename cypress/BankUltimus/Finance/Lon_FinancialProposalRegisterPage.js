@@ -21,20 +21,57 @@ class Lon_FinancialProposalRegister {
         //cy.wait(3000);
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlMailingAddressType').select(dataFinancialProposalRegister.address_type).blur();
         cy.wait(3000);
-        cy.wait('@formReload');       //intercept Post Request call
+        //cy.wait('@formReload');       //intercept Post Request call
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlMailingAddressType').focus().select(dataFinancialProposalRegister.address_type, { force: true });
-        cy.wait(3000);
+
+        //cy.wait(3000); 
+
+
         cy.get('#ctl00_contPlcHdrMasterHolder_LstxtEconomicPurposeCodeSBS').type(dataFinancialProposalRegister.eco_sbs).type('{enter}');
+
+        // cy.wait('@formReload');
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtSecurityCode').clear().type(dataFinancialProposalRegister.sec_code);
+        //cy.get('#ctl00_contPlcHdrMasterHolder_LstxtSecurityCode').clear().type(dataFinancialProposalRegister.sec_code);
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtSecurityCode').type(dataFinancialProposalRegister.sec_code).then(() => {
+        //     cy.get('#ctl00_contPlcHdrMasterHolder_LstxtSecurityCode').should('have.value', dataFinancialProposalRegister.sec_code);
+        // });
+
         //cy.wait(3000);
-        cy.get('#ctl00_contPlcHdrMasterHolder_LstxtSecurityCode').type(dataFinancialProposalRegister.sec_code);
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlLendingPurpose') .focus().blur();
+        // cy.wait('@formReload');       //intercept Post Request call
+
+       // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlLendingPurpose').select(dataFinancialProposalRegister.credit_Purpose).blur();
+        cy.wait(3000);
+        //cy.wait('@formReload');       //intercept Post Request call
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlLendingPurpose').focus().select(dataFinancialProposalRegister.credit_Purpose, { force: true });
+
+
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlLendingPurpose')
+        //     .contains('option', 'OTHERS') // Partial text match
+        //     .then($option => {
+        //         const val = $option.attr('value');
+        //         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlLendingPurpose')
+        //             .select(val, { force: true });
+        //     });
+
+        cy.get('#ctl00_contPlcHdrMasterHolder_LsddlLendingPurpose').focus().select(dataFinancialProposalRegister.credit_Purpose, { force: true });
+        cy.wait(3000);
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlLendingConcentration').focus().select(dataFinancialProposalRegister.credit_Concen, { force: true });
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlExportSector').focus().select(dataFinancialProposalRegister.sector, { force: true });
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlExposureType').focus().select(dataFinancialProposalRegister.expo_Type, { force: true });
+        //cy.wait(3000);
 
 
+
+
+       // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct').select(dataFinancialProposalRegister.product).blur();
+        cy.wait(3000);
+        //cy.wait('@formReload');       //intercept Post Request call
+        //cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct').focus().select(dataFinancialProposalRegister.product, { force: true });
+
+        //cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct').select(dataFinancialProposalRegister.product, { force: true });
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
-            .contains('option', 'CASH CREDIT') // Partial text match
+            .contains('option', 'PKB_Continuous') // Partial text match
             .then($option => {
                 const val = $option.attr('value');
                 cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
@@ -42,8 +79,8 @@ class Lon_FinancialProposalRegister {
             });
 
 
-        //cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct').focus().select('608 - CASH CREDIT - HYPO', { force: true });
-        // cy.log('Product Value:', someVariable);--dataFinancialProposalRegister.product
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct').focus().select('608 - CASH CREDIT - HYPO', { force: true });
+       // cy.log('Product Value:', someVariable); --dataFinancialProposalRegister.product
 
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlApprovalAuthority')
             .contains('option', 'Branch Manager') // Partial text match
@@ -79,7 +116,7 @@ class Lon_FinancialProposalRegister {
 
                 cy.wait(3000);
                 cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
-                cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
+                //cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
             } else {
                 // If not empty, directly click OK
                 cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
@@ -102,7 +139,7 @@ class Lon_FinancialProposalRegister {
                     const proposalId = match[1];
                     expect(proposalId).to.not.be.null;
                     Cypress.env('proposalId', proposalId);
-                    cy.log('Proposal ID:', proposalId);                   
+                    cy.log('Proposal ID:', proposalId);
 
                 } else {
                     throw new Error('❌ Proposal ID not found!');
