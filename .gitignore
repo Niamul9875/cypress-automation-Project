@@ -21,3 +21,4 @@ cypress/BankUltimus/Finance/Lon_FinancialProposalRegisterPage.js
 cypress/BankUltimus/Finance/Lon_FinancingApprovalPage.js
 cypress/e2e/Financial/Finance.cy.js
 cypress/e2e/Financial/test.cy.js
+cypress/fixtures/~$loginData3.xlsx
