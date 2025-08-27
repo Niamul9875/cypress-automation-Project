@@ -33,11 +33,10 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-feature/Niamul
+            //bat 'npx cypress run --spec "cypress/e2e/CenterPoint/ERP.cy.js"'
             bat 'npx cypress run --spec "cypress/e2e/GB/CIF_Organization.cy.js"'
              // Run your custom Cypress runner script
               //bat 'node runInOrder.js'
-            main
           }
         }
       }

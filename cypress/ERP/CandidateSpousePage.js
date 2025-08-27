@@ -33,13 +33,18 @@ class CandidateSpousePage {
     //  Gender radio select validation
     cy.get('input[type="radio"][value="MALE"]').check({ force: true });
     cy.get('input[type="radio"][value="MALE"]').should('be.checked');
-    //  Blood Group dropdown থেকে একটি মান select
+    
+
     cy.get('common-mat-select-search[controlname="bloodGroup"] mat-select')
-      .should('exist')
-      .click({ force: true });
-    cy.get('mat-option').contains('A+').click();
-    cy.get('common-mat-select-search[controlname="bloodGroup"] .mat-mdc-select-value-text span')
-      .should('contain.text', 'A+');
+  .should('exist')
+  .click({ force: true });
+
+cy.wait(500);  // 0.5 সেকেন্ড অপেক্ষা দিন অপশন লোডের জন্য
+
+cy.get('mat-option').contains('A+').click();
+
+cy.get('common-mat-select-search[controlname="bloodGroup"] .mat-mdc-select-value-text span')
+  .should('contain.text', 'A+');
 
     cy.contains('span', 'Mobile No')
       .parent()
