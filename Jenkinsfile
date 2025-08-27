@@ -11,7 +11,7 @@ pipeline {
     REMOTE_FOLDER = 'gdrive:/BUltimus/'  
     BUILD_FOLDER = "Build_${BUILD_NUMBER}"
     VIDEO_DIR = "${env.WORKSPACE}\\cypress\\videos"
-    EMAIL_TO = 'avisheak.mitra@leads-bd.com'
+    EMAIL_TO = 'niamul.islam@leads-bd.com'
     EMAIL_FROM = 'missiononemtwo@gmail.com'
   }
 
@@ -33,20 +33,31 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-<<<<<<< HEAD
+           //env.SPEC_FILES = "cypress/e2e/GB/CIF_Organization.cy.js"
 
-            bat 'npx cypress run --spec "cypress/e2e/GB/CIF_Organization.cy.js"'
+           env.SPEC_FILES = "cypress/e2e/Deposit/DemandDeposit.cy.js" 
+          //  env.SPEC_FILES = "cypress/e2e/Deposit/DemandDepositCashTrans.cy.js"
+
+          //  env.SPEC_FILES = "cypress/e2e/Deposit/TimeDeposit.cy.js"
+          //  env.SPEC_FILES = "cypress/e2e/Deposit/TimeDepositCashTrans.cy.js"
+
+          //  env.SPEC_FILES = "cypress/e2e/Deposit/SchemeDeposit.cy.js"
+          //  env.SPEC_FILES = "cypress/e2e/Deposit/SchemeDepositCashTrans.cy.js"
+
+           bat "npx cypress run --spec \"${env.SPEC_FILE}\""
+
+            
+
              // Run your custom Cypress runner script
 
             //bat 'npx cypress run --spec "cypress/e2e/BU.cy.js"'
              // Run your custom Cypress runner script
              // bat 'node runInOrder.js'
-=======
+
             //bat 'npx cypress run --spec "cypress/e2e/CenterPoint/ERP.cy.js"'
-            bat 'npx cypress run --spec "cypress/e2e/GB/CIF_Organization.cy.js"'
+            //bat 'npx cypress run --spec "cypress/e2e/GB/CIF_Organization.cy.js"'
              // Run your custom Cypress runner script
               //bat 'node runInOrder.js'
->>>>>>> 034092edd0f9bdaa74b7ff7b39f0613ad8714580
           }
         }
       }
@@ -55,12 +66,14 @@ pipeline {
     stage('Upload Videos to Google Drive') {
       steps {
         script {
-           def specFiles = ['CIF_Organization.cy.js.mp4']
-          specFiles.each { specVideo ->
-            def videoFile = "${env.VIDEO_DIR}\\${specVideo}"
-            def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/${specVideo}"
-            bat "dir \"${env.VIDEO_DIR}\""
-            bat "\"${env.RCLONE_PATH}\" copyto \"${videoFile}\" \"${remoteFile}\""
+           // Extract only the spec filename without path
+      def specName = env.SPEC_FILE.tokenize('/\\').last()  // DemandDeposit.cy.js
+      def videoFileName = "${specName}.mp4"                // DemandDeposit.cy.js.mp4
+      def videoFile = "${env.VIDEO_DIR}\\${videoFileName}"
+      def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/${videoFileName}"
+
+      bat "dir \"${env.VIDEO_DIR}\""
+      bat "\"${env.RCLONE_PATH}\" copyto \"${videoFile}\" \"${remoteFile}\""
             }
           // def videoFile = "${env.VIDEO_DIR}\\CIF_Organization.cy.js.mp4"
           // def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/CIF_Organization.cy.js.mp4"
@@ -84,14 +97,16 @@ pipeline {
 
     
   }
-
-  post {
-    always {
+post {
+  always {
+    script {
+      // Extract only the spec filename (e.g. DemandDeposit.cy.js)
+      def specName = env.SPEC_FILE?.tokenize('/\\')?.last() ?: "Unknown_Spec"
       emailext (
         subject: "✅ Cypress Report - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
         body: """
           <p>Hello,</p>
-          <p>The Cypress test <b>CIF_Organization.cy.js</b> has completed.</p>
+          <p>The Cypress test <b>${specName}</b> has completed.</p>
           <ul>
             <li><b>Status:</b> ${currentBuild.currentResult}</li>
             <li><b>Google Drive Folder:</b> <a href="${env.BUILD_FOLDER_LINK}">Open CypressReports/Build_${env.BUILD_NUMBER}</a></li>
@@ -103,10 +118,10 @@ pipeline {
         from: "${env.EMAIL_FROM}",
         mimeType: 'text/html'
       )
-
-      echo 'Cleaning up...'
     }
+    echo 'Cleaning up...'
   }
+   
 }
 
 //
