@@ -27,40 +27,44 @@ pipeline {
         bat 'npx cypress install'
       }
     }
-stage('Run Cypress Tests and Upload Videos') {
-  steps {
-    script {
-      catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-        def specFiles = [
-          "cypress/e2e/Deposit/DemandDeposit.cy.js",
-          "cypress/e2e/Deposit/DemandDepositCashTrans.cy.js",
-          "cypress/e2e/Deposit/TimeDeposit.cy.js",
-          "cypress/e2e/Deposit/TimeDepositCashTrans.cy.js",
-          "cypress/e2e/Deposit/SchemeDeposit.cy.js",
-          "cypress/e2e/Deposit/SchemeDepositCashTrans.cy.js"
-        ]
 
-        specFiles.each { spec ->
-          // Run Cypress test
-          bat "npx cypress run --spec \"${spec}\""
+    stage('Run Cypress Test') {
+      steps {
+        script {
+          catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+            // define which spec to run
+            env.SPEC_FILE = "cypress/e2e/Deposit/DemandDeposit.cy.js"
+            // env.SPEC_FILE = "cypress/e2e/Deposit/DemandDepositCashTrans.cyjs"
+            // env.SPEC_FILE = "cypress/e2e/Deposit/TimeDeposit.cy.js"
+            // env.SPEC_FILE = "cypress/e2e/Deposit/TimeDepositCashTrans.cy.js"
+            // env.SPEC_FILE = "cypress/e2e/Deposit/TimeDeposit.cy.js"
+            // env.SPEC_FILE = "cypress/e2e/Deposit/SchemeDeposit.cy.js"
+            // env.SPEC_FILE = "cypress/e2e/Deposit/SchemeDepositCashTrans.cy.js"
+            // run Cypress
+            bat "npx cypress run --spec \"${env.SPEC_FILE}\""
 
-          // Extract spec name only (without path)
-          def specName = spec.tokenize('/\\').last()        // DemandDeposit.cy.js
-          def videoFileName = "${specName}.mp4"             // DemandDeposit.cy.js.mp4
-          def videoFile = "${env.VIDEO_DIR}\\${videoFileName}"
-          def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/${videoFileName}"
+           
 
-          // Debug: list videos
-          bat "dir \"${env.VIDEO_DIR}\""
-
-          // Upload video to Google Drive
-          bat "\"${env.RCLONE_PATH}\" copyto \"${videoFile}\" \"${remoteFile}\""
+          }
         }
       }
     }
-  }
-}  
 
+    stage('Upload Videos to Google Drive') {
+      steps {
+        script {
+          // Extract only the spec filename without path
+          def specName = env.SPEC_FILE.tokenize('/\\').last()      // DemandDeposit.cy.js
+          def videoFileName = "${specName}.mp4"                    // DemandDeposit.cy.js.mp4
+          def videoFile = "${env.VIDEO_DIR}\\${videoFileName}"
+          def remoteFile = "${env.REMOTE_FOLDER}${env.BUILD_FOLDER}/videos/${videoFileName}"
+
+          bat "dir \"${env.VIDEO_DIR}\""
+          bat "\"${env.RCLONE_PATH}\" copyto \"${videoFile}\" \"${remoteFile}\""
+
+        }
+      }
+    }
 
     stage('Get Shareable Links') {
       steps {
