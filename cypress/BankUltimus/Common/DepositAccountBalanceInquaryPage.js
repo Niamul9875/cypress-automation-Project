@@ -41,6 +41,8 @@ class AccountInquary {
                                     // Validate the balance value "20,651.00"
                                     const expectedBalance = '1,00,000.00';
                                     if (balanceValueText.trim() === expectedBalance) {
+                                        cy.log('Actual Balance =', actualBalance);
+                                        cy.log('Expected Balance =', expectedBalance);
                                         cy.log('Validation passed: Available Balance and value are correct.');
                                     } else {
                                         cy.log(`Validation failed: Expected balance "${expectedBalance}", but found "${balanceValueText.trim()}".`);
@@ -66,6 +68,8 @@ class AccountInquary {
                         const expectedBalance = '100000.00'; // expected value as string
 
                         if (actualBalance === expectedBalance) {
+                            cy.log('Actual Balance =', actualBalance);
+                            cy.log('Expected Balance =', expectedBalance);
                             cy.log('✅ Validation passed: Available Balance is correct.');
                         } else {
                             cy.log(`❌ Validation failed: Expected "${expectedBalance}", but found "${actualBalance}".`);
@@ -99,6 +103,8 @@ class AccountInquary {
                         const expectedBalance = '15000'; // expected value as string
 
                         if (actualBalance === expectedBalance) {
+                            cy.log('Actual Balance =', actualBalance);
+                            cy.log('Expected Balance =', expectedBalance);
                             cy.log('✅ Validation passed: Available Balance is correct.');
                         } else {
                             cy.log(`❌ Validation failed: Expected "${expectedBalance}", but found "${actualBalance}".`);
