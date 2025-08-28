@@ -72,6 +72,8 @@ class AccountInquary {
                             throw new Error(`Balance mismatch. Expected: "${expectedBalance}", Found: "${actualBalance}"`);
                         }
                     });
+
+                cy.wait(3000)
                 // cy.get('#ctl00_contPlcHdrMasterHolder_fieldsetNominee')
                 //     .find('table tr') // Find all table rows
                 //     .not(':first')    // Exclude the header row
@@ -104,6 +106,7 @@ class AccountInquary {
                         }
                     });
 
+                cy.wait(3000)
 
             } else {
                 throw new Error("❌ No identifier (productCode) found in Cypress.env()");
