@@ -2,9 +2,13 @@
 class OrganizationDetailsPage {
 
     OrganizationDetails() {
+         //cy.intercept('GET', '/hrm/api/v1/emp/organizational-details/employee/**').as('getOrgDetails');
         cy.origin('http://192.168.10.36:4300', () => {
             //cy.visit('/hrm/employee-profile/employee-info');
             cy.log('Organization Details Page');
+            // Wait for API call
+            // cy.intercept('GET', '/hrm/api/v1/emp/organizational-details/employee/**').as('getOrgDetails');
+            //cy.wait('@getOrgDetails');
 
             cy.get('common-input-field[controlname="employeeType"] input')
                 .should('be.visible')
@@ -50,7 +54,7 @@ class OrganizationDetailsPage {
             cy.get('mat-option').contains('Bank Solutions').click({ force: true });
 
             //confirmationDate
-             cy.contains('Confirmation Date')
+            cy.contains('Confirmation Date')
                 .parent()       // move to the form-field wrapper
                 .find('input')  // get the actual date input
                 .type('23-07-2025');
@@ -78,7 +82,7 @@ class OrganizationDetailsPage {
                 .type('0');
 
             //expectedConfirmDate
-             cy.contains('Expected Confirm Date')
+            cy.contains('Expected Confirm Date')
                 .parent()       // move to the form-field wrapper
                 .find('input')  // get the actual date input
                 .type('23-07-2025');
@@ -86,7 +90,7 @@ class OrganizationDetailsPage {
 
             //eligibleForOvertime
             cy.get('[controlname="eligibleForOvertime"] mat-select').click({ force: true });
-            cy.get('mat-option').contains('Yes').click({ force: true });           
+            cy.get('mat-option').contains('Yes').click({ force: true });
 
 
             cy.contains('button', 'Save & Next')

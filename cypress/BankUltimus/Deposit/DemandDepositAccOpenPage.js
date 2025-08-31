@@ -7,16 +7,45 @@ class DemandDepositAccOpen {
 
     cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccNoPrdId').type(dataDDAccOpen.prod_ID).type('{enter}');
 
-    cy.get('#ctl00_contPlcHdrMasterHolder_LstxtCustId').clear();
-    cy.get('#ctl00_contPlcHdrMasterHolder_LstxtCustId').focus().type(dataDDAccOpen.cus_ID).type('{enter}');
-    cy.wait(3000);
+    // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtCustId').clear();
+    // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtCustId').focus().type(dataDDAccOpen.cus_ID).type('{enter}');
+    // cy.wait(3000);
 
-    cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccOpeningPrp').clear();
+    // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccOpeningPrp').clear();
+    //  cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccOpeningPrp').type(dataDDAccOpen.purpose).type('{enter}');
 
-    cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCusMailAddrType').select(dataDDAccOpen.address_type).blur();
+    // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCusMailAddrType').select(dataDDAccOpen.address_type).blur();
+    // cy.wait(3000);
+    // cy.wait('@formReload');       //intercept Post Request call
+    // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCusMailAddrType').focus().select(dataDDAccOpen.address_type, { force: true });
+ cy.get('#ctl00_contPlcHdrMasterHolder_LstxtCustId').focus().blur();
+    cy.wait('@formReload');
+    cy.get('#ctl00_contPlcHdrMasterHolder_LstxtCustId', { timeout: 10000 })
+      .should('be.visible')
+      .should('not.be.disabled')
+      .type(dataDDAccOpen.cus_ID, { force: true }).type('{enter}');
+
+    cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCusMailAddrType').focus().blur();
+    cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCusMailAddrType', { timeout: 10000 })
+      .should('not.be.disabled')
+      .should('contain.text', 'Permanent')
+      .select(dataDDAccOpen.address_type, { force: true });
+    cy.wait('@formReload');
+
+
     cy.wait(3000);
-    cy.wait('@formReload');       //intercept Post Request call
-    cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCusMailAddrType').focus().select(dataDDAccOpen.address_type, { force: true });
+    //Check if textbox is empty
+    cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccOpeningPrp').invoke('val').then((text) => {
+      if (!text) {
+        // If empty, type the purpose and click OK
+        // cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTermNo').select(dataSDAccOpen.term_No, { force: true });
+        cy.get('#ctl00_contPlcHdrMasterHolder_LstxtAccOpeningPrp').type(dataDDAccOpen.purpose).type('{enter}');
+      }
+    });
+
+
+
+
 
 
     cy.get('#ctl00_contPlcHdrMasterHolder_LsddlTrNat').select(dataDDAccOpen.trans_nature).blur();

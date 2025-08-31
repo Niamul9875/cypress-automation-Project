@@ -191,7 +191,7 @@ class EducationalInfoPage {
 
             cy.contains('button', 'Save & Next')
                 .should('not.be.disabled')  // waits until it's enabled
-                .click()
+                .click();
 
         });
     }

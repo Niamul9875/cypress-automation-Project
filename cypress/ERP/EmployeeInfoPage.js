@@ -8,16 +8,16 @@ class EmployeeInfoPage {
     // const nomineeMother = faker.person.fullName();
 
     //cy.get(':nth-child(3) > :nth-child(2) > .text-2xl').click();
- cy.contains('Employee', { timeout: 10000 })
-        .should('be.visible')
-        .click();
+    cy.contains('Employee', { timeout: 10000 })
+      .should('be.visible')
+      .click();
     cy.origin('http://192.168.10.36:4300', () => {
 
       //cy.get("span[class='ng-tns-c321347134-2']").click();
-      
+
       cy.get('.mat-mdc-tooltip-trigger.fuse-vertical-navigation-item.ng-tns-c321347134-5').click();
 
-      cy.contains('a', 'Employee Details', { timeout: 10000 })
+      cy.contains('a', 'Employee List', { timeout: 10000 })
         .should('be.visible')
         .click();
       cy.visit('/hrm/employee-profile/employee-info');
@@ -28,10 +28,23 @@ class EmployeeInfoPage {
       // cy.get('#mat-input-0').clear().type(empId);
 
       //cy.get('input[matinput][type="text"][required][aria-required="true"][aria-describedby="mat-mdc-error-12"]').type('EMP031');
+      // cy.get('common-input-field[controlname="employeeId"] input')
+      //   .should('be.visible')
+      //   .clear()
+      //   .type('EMP087');
+      //---------------------------------------------------
+      // Generate a unique employee ID using current timestamp
+      const uniqueEmpId = `EMP-${Date.now()}`;
+
       cy.get('common-input-field[controlname="employeeId"] input')
         .should('be.visible')
         .clear()
-        .type('EMP086');
+        .type(uniqueEmpId);
+
+      // Log it so you can see in test runner
+      cy.log('Generated Employee ID:', uniqueEmpId);
+
+      //---------------------------------------------------
 
       cy.get('common-input-field[controlname="employeeNameEn"] input')
         .should('be.visible')
@@ -94,17 +107,41 @@ class EmployeeInfoPage {
         .clear()
         .type('9854585487985');
 
+
+
+
+      // Open Religion dropdown
+      cy.get('common-mat-select-search[labelname="empProfile.religion"] mat-select')
+        .click({ force: true });
+
+      // Select "Islam"
+      cy.get('mat-option span.mdc-list-item__primary-text')
+        .contains('Islam')
+        .click({ force: true });
+
+      // Open Blood Group dropdown
+      cy.get('common-mat-select-search[labelname="empProfile.bloodGroup"] mat-select')
+        .click({ force: true });
+
+      // Select "O+"
+      cy.get('mat-option span.mdc-list-item__primary-text')
+        .contains('O+')
+        .click({ force: true });
+
       // cy.get('[controlname="religion"] mat-select').click({ force: true });
       // cy.get('mat-option').contains('Islam').click({ force: true });
-      cy.get('#mat-select-value-1').click();
-      cy.get('.mat-select-search-inner-row > .mat-select-search-input').type('Islam');
-      cy.get('#mat-option-32 > .mdc-list-item__primary-text').click();
+      // cy.get('#mat-select-value-1').click();
+      // cy.get('.mat-select-search-inner-row > .mat-select-search-input').type('Islam');
+      // cy.get('#mat-option-32 > .mdc-list-item__primary-text').click();
+
+      // cy.get('mat-select[controlname="religion"]').click({ force: true });
+      // cy.get('mat-option:visible').contains('Islam').click({ force: true });
 
       // cy.get('[controlname="bloodGroup"] mat-select').click({ force: true });
       // cy.get('mat-option').contains('O+').click({ force: true });
-      cy.get('#mat-select-value-2').click();
-      cy.get('.mat-select-search-inner-row > .mat-select-search-input').type('O+');//bloodGroup
-      cy.get('#mat-option-42 > .mdc-list-item__primary-text').click();
+      // cy.get('#mat-select-value-2').click();
+      // cy.get('.mat-select-search-inner-row > .mat-select-search-input').type('O+');//bloodGroup
+      // cy.get('#mat-option-42 > .mdc-list-item__primary-text').click();
 
 
       // cy.get('#mat-input-12').type('5.9');height
@@ -186,12 +223,15 @@ class EmployeeInfoPage {
 
       cy.get('[controlname="presentCountry"] mat-select').click({ force: true });
       cy.get('mat-option').contains('Bangladesh').click({ force: true });
+
       cy.get('[controlname="presentDivision"] mat-select').click({ force: true });
       cy.get('mat-option').contains('Dhaka').click({ force: true });
+
       cy.get('[controlname="presentDistrict"] mat-select').click({ force: true });
       cy.get('mat-option').contains('Dhaka').click({ force: true });
+
       cy.get('[controlname="presentUpazila"] mat-select').click({ force: true });
-      cy.get('mat-option').contains('Rupganj').click({ force: true });
+      cy.get('mat-option').contains('Sadar').click({ force: true });
 
       // cy.get('[controlname="presentPostCode"] mat-select').click({ force: true });
       // cy.get('mat-option').contains('1207').click({ force: true });
@@ -213,7 +253,7 @@ class EmployeeInfoPage {
       cy.get('[controlname="permanentDistrict"] mat-select').click({ force: true });
       cy.get('mat-option').contains('Dhaka').click({ force: true });
       cy.get('[controlname="permanentUpazila"] mat-select').click({ force: true });
-      cy.get('mat-option').contains('Rupganj').click({ force: true });
+      cy.get('mat-option').contains('Sadar').click({ force: true });
 
       cy.get('common-input-field[controlname="permanentPostCode"] input')
         .should('be.visible')
@@ -255,7 +295,7 @@ class EmployeeInfoPage {
       cy.get('[controlname="contactDistrict"] mat-select').click({ force: true });
       cy.get('mat-option').contains('Dhaka').click({ force: true });
       cy.get('[controlname="contactUpazila"] mat-select').click({ force: true });
-      cy.get('mat-option').contains('Rupganj').click({ force: true });
+      cy.get('mat-option').contains('Sadar').click({ force: true });
 
       cy.get('common-input-field[controlname="contactPostCode"] input')
         .should('be.visible')
@@ -269,7 +309,16 @@ class EmployeeInfoPage {
 
       cy.contains('button', 'Save & Next')
         .should('not.be.disabled')  // waits until it's enabled
-        .click()
+        .click();
+      // Wait for success message to appear
+      cy.contains('Employee Information Created Successfully')
+        .should('be.visible');
+
+      // Click the OK button inside the snackbar
+      cy.get('simple-snack-bar button.mat-mdc-snack-bar-action')
+        .contains('OK')
+        .click({ force: true });
+
 
       //cy.get(':nth-child(2) > .mdc-button > .mdc-button__label > .flex > span').click();
       //cy.get(':nth-child(3) > .mdc-button > .mdc-button__label > .flex > span').click();
