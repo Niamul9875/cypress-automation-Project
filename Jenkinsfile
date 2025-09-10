@@ -114,51 +114,28 @@ pipeline {
   }
 
   post {
-  always {
-    script {
-      // Extract only the spec filename (e.g. DemandDeposit.cy.js)
-      def specName = env.SPEC_FILE?.tokenize('/\\')?.last() ?: "Unknown_Spec"
-
-      def emailBody = """
-        <html>
-          <body style="font-family: Arial, sans-serif; line-height: 1.6;">
-            <h2 style="color:#2E86C1;">✅ Cypress Test Report</h2>
-            <p>Hello Team,</p>
-            <p>The Cypress test run has completed. Below are the details:</p>
-            <table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; font-size:14px;">
-              <tr>
-                <th align="left">Spec File</th>
-                <td>${specName}</td>
-              </tr>
-              <tr>
-                <th align="left">Status</th>
-                <td><b>${currentBuild.currentResult}</b></td>
-              </tr>
-              <tr>
-                <th align="left">Google Drive Folder</th>
-                <td><a href="${env.BUILD_FOLDER_LINK}">Open CypressReports/Build_${env.BUILD_NUMBER}</a></td>
-              </tr>
-              <tr>
-                <th align="left">Jenkins Build URL</th>
-                <td><a href="${env.BUILD_URL}">${env.BUILD_URL}</a></td>
-              </tr>
-            </table>
-            <br/>
-            <p style="color:#555;">Regards,<br><b>Automation Team</b></p>
-          </body>
-        </html>
-      """
-
-      emailext(
-        subject: "✅ Cypress Report - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
-        body: emailBody,
-        to: "${env.EMAIL_TO}",
-        from: "${env.EMAIL_FROM}",
-        mimeType: 'text/html'
-      )
+    always {
+      script {
+        // Extract  only the spec filename (e.g. DemandDeposit.cy.js)
+        def specName = env.SPEC_FILE?.tokenize('/\\')?.last() ?: "Unknown_Spec"
+        emailext(
+          subject: "✅ Cypress Report - Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+          body: """
+            <p>Hello,</p>
+            <p>The Cypress test <b>${specName}</b> has completed.</p>
+            <ul>
+              <li><b>Status:</b> ${currentBuild.currentResult}</li>
+              <li><b>Google Drive Folder:</b> <a href="${env.BUILD_FOLDER_LINK}">Open CypressReports/Build_${env.BUILD_NUMBER}</a></li>
+              <li><b>Build URL:</b> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></li>
+            </ul>
+            <p>Regards,<br>...</p>
+          """,
+          to: "${env.EMAIL_TO}",
+          from: "${env.EMAIL_FROM}",
+          mimeType: 'text/html'
+        )
+      }
+      echo 'Cleaning up...'
     }
-    echo 'Cleaning up...'
   }
-}
-
 }
