@@ -36,12 +36,14 @@ class TransactionAuthorizationPage {
         cy.get('#ctl00_contPlcHdrMasterHolder_btnFind').click(); //Click on Find btn for search Transaction
         cy.wait(3000);
         cy.get('#ctl00_contPlcHdrMasterHolder_gvUTQ > tbody > tr') // Select all rows
-            .each(($row) => {
+            .each(($row) => {                
                 const batchNoToSelect = Cypress.env('batchNo');
+                //cy.log('batch No:  ',batchNoToSelect)
                 const cells = $row.find('td');
                 const batchNo = Cypress.$(cells[1]).text().trim(); // 2nd column = Batch No.
 
-                if (batchNo === batchNoToSelect) {
+                if (batchNo === batchNoToSelect) {                    
+                cy.log('batch No:  ',batchNoToSelect)
                     cy.wrap(cells[0]).contains('Select').click(); // 1st column = Select link
                 }
             });

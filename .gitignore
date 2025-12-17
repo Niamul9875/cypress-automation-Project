@@ -15,14 +15,130 @@ npm-debug.log*
 Thumbs.db
 
 
- cypress/BankUltimus/Finance/Lon_AccountOpenPage.js
-cypress/BankUltimus/Finance/Lon_CommitmentPortfolioRegisterPage.js
-cypress/BankUltimus/Finance/Lon_FinancialProposalRegisterPage.js
-cypress/BankUltimus/Finance/Lon_FinancingApprovalPage.js
-cypress/e2e/Financial/Finance.cy.js
-cypress/e2e/Financial/test.cy.js
-cypress/fixtures/~$loginData3.xlsx
+#  cypress/BankUltimus/Finance/Lon_AccountOpenPage.js
+# cypress/BankUltimus/Finance/Lon_CommitmentPortfolioRegisterPage.js
+# cypress/BankUltimus/Finance/Lon_FinancialProposalRegisterPage.js
+# cypress/BankUltimus/Finance/Lon_FinancingApprovalPage.js
+# cypress/e2e/Financial/Finance.cy.js
+# cypress/e2e/Financial/test.cy.js
+# cypress/fixtures/~$loginData3.xlsx
+# cypress/ERP/EducationalInfoPage.js
+# cypress/ERP/EmployeeInfoPage.js
+# cypress/ERP/OrganizationDetailsPage.js
+# cypress/fixtures/loginData3.xlsx
+cypress/reports/index_001.html
+cypress/reports/index_002.html
+cypress/reports/index_003.html
+cypress/reports/index_004.html
+cypress/reports/index_005.html
+cypress/reports/index_006.html
+cypress/reports/index_007.html
+cypress/reports/index_008.html
+cypress/reports/index_009.html
+cypress/reports/index_010.html
+cypress/reports/index_011.html
+cypress/reports/index_012.html
+cypress/reports/index_013.html
+cypress/reports/index_014.html
+cypress/reports/index_015.html
+cypress/reports/index_016.html
+cypress/reports/index_017.html
+cypress/reports/index_018.html
+cypress/reports/index_019.html
+cypress/reports/index_020.html
+cypress/reports/index_021.html
+cypress/reports/index_022.html
+cypress/reports/index_023.html
+cypress/reports/index_024.html
+cypress/reports/index_025.html
+cypress/reports/index.html
+cypress/reports/screenshots/BU.cy.js/Login Test Using Excel Data -- should Create a Customer (Individual) (failed).png
+cypress/reports/screenshots/pc.cy.js/authorize p.customer -- Authorize p. customer (failed).png
+cypress/reports/screenshots/spec.cy.js/An uncaught error was detected outside of a test (failed).png
+cypress/reports/screenshots/spec.cy.js/Customer Profile - Individual -- This should go to the Login Page (failed).png
+cypress/reports/videos/BU.cy.js.mp4
+cypress/reports/videos/pc.cy.js.mp4
+cypress/reports/videos/spec.cy.js.mp4
+cypress/reports/index_001.html
+cypress/reports/index_002.html
+cypress/reports/index_003.html
+cypress/reports/index_004.html
+cypress/reports/index_005.html
+cypress/reports/index_006.html
+cypress/reports/index_007.html
+cypress/reports/index_008.html
+cypress/reports/index_009.html
+cypress/reports/index_010.html
+cypress/reports/index_011.html
+cypress/reports/index_012.html
+cypress/reports/index_013.html
+cypress/reports/index_014.html
+cypress/reports/index_015.html
+cypress/reports/index_016.html
+cypress/reports/index_017.html
+cypress/reports/index_018.html
+cypress/reports/index_019.html
+cypress/reports/index_020.html
+cypress/reports/index_021.html
+cypress/reports/index_022.html
+cypress/reports/index_023.html
+cypress/reports/index_024.html
+cypress/reports/index_025.html
+cypress/reports/index.html
+cypress/reports/screenshots/BU.cy.js/Login Test Using Excel Data -- should Create a Customer (Individual) (failed).png
+cypress/reports/screenshots/pc.cy.js/authorize p.customer -- Authorize p. customer (failed).png
+cypress/reports/screenshots/spec.cy.js/An uncaught error was detected outside of a test (failed).png
+cypress/reports/screenshots/spec.cy.js/Customer Profile - Individual -- This should go to the Login Page (failed).png
+cypress/reports/videos/BU.cy.js.mp4
+cypress/reports/videos/pc.cy.js.mp4
+cypress/reports/videos/spec.cy.js.mp4
+cypress/ERP/AddtionalInfoPage.js
+cypress/ERP/AttachmentPage.js
+cypress/ERP/CandidateCareerinfoPage.js
+cypress/ERP/CandidateChildrenPage.js
+cypress/ERP/CandidateEducationPage.js
+cypress/ERP/CandidateInfoPage.js
+cypress/ERP/CandidateProficientyPage.js
+cypress/ERP/CandidateReferencePage.js
+cypress/ERP/CandidateSpousePage.js
+cypress/ERP/CandidateTrainingPage.js
+cypress/ERP/ChildrenPage.js
 cypress/ERP/EducationalInfoPage.js
 cypress/ERP/EmployeeInfoPage.js
+cypress/ERP/EmployeeListPage.js
+cypress/ERP/ERPLoginPage.js
+cypress/ERP/ERPLoginPageQC.js
+cypress/ERP/JobExperiencePage.js
+cypress/ERP/NomineePage.js
 cypress/ERP/OrganizationDetailsPage.js
-cypress/fixtures/loginData3.xlsx
+cypress/ERP/PhotoAndSignaturePage.js
+cypress/ERP/ProficiencyPage.js
+cypress/ERP/ReferencePage.js
+cypress/ERP/RelativesPage.js
+cypress/ERP/SpousePage.js
+cypress/ERP/testPhotoUpload.js
+cypress/ERP/TrainingPage.js
+cypress/ERP/EmployeeInfo/AddtionalInfoPage.js
+cypress/ERP/EmployeeInfo/AttachmentPage.js
+cypress/ERP/EmployeeInfo/CandidateCareerinfoPage.js
+cypress/ERP/EmployeeInfo/CandidateChildrenPage.js
+cypress/ERP/EmployeeInfo/CandidateEducationPage.js
+cypress/ERP/EmployeeInfo/CandidateInfoPage.js
+cypress/ERP/EmployeeInfo/CandidateProficientyPage.js
+cypress/ERP/EmployeeInfo/CandidateReferencePage.js
+cypress/ERP/EmployeeInfo/CandidateSpousePage.js
+cypress/ERP/EmployeeInfo/CandidateTrainingPage.js
+cypress/ERP/EmployeeInfo/ChildrenPage.js
+cypress/ERP/EmployeeInfo/EducationalInfoPage.js
+cypress/ERP/EmployeeInfo/EmployeeInfoPage.js
+cypress/ERP/EmployeeInfo/EmployeeListPage.js
+cypress/ERP/EmployeeInfo/ERPLoginPage.js
+cypress/ERP/EmployeeInfo/JobExperiencePage.js
+cypress/ERP/EmployeeInfo/NomineePage.js
+cypress/ERP/EmployeeInfo/OrganizationDetailsPage.js
+cypress/ERP/EmployeeInfo/PhotoAndSignaturePage.js
+cypress/ERP/EmployeeInfo/ProficiencyPage.js
+cypress/ERP/EmployeeInfo/ReferencePage.js
+cypress/ERP/EmployeeInfo/RelativesPage.js
+cypress/ERP/EmployeeInfo/SpousePage.js
+cypress/ERP/EmployeeInfo/TrainingPage.js

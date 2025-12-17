@@ -1,5 +1,5 @@
 const { readExcelData } = require('../../support/readExcel.js'); // Node-style import
-import ERPLoginPage from '../../ERP/ERPLoginPage'; // ES Module import
+import ERPLoginPage from '../../ERP/EmployeeInfo/ERPLoginPage'; // ES Module import
 import 'cypress-file-upload';
 
 

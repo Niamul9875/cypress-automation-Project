@@ -32,10 +32,16 @@ class NFTAuthorizeQueuePage {
 
 
     cy.then(() => {
+      //const accountNumber = Cypress.env('6699605000008');
       const accountNumber = Cypress.env('accountNumber');
       //const accountNumber = Cypress.env('6699316000011');
       const creditLineId = Cypress.env('creditLineId');
       const proposalId = Cypress.env('proposalId');
+      const commitmentId = Cypress.env('commitmentId');
+      const collateralID = Cypress.env('collateralID');
+      const requisitionId = Cypress.env('requisitionId');
+
+      //cy.log('Commitment ID:', {commitmentId });+
 
       if (accountNumber) {
         cy.log('🔍 Searching by Account Number: ' + accountNumber);
@@ -81,8 +87,55 @@ class NFTAuthorizeQueuePage {
           }
         });
 
-      } else {
-        throw new Error("❌ No identifier (accountNumber or savedCreditLineId) found in Cypress.env()");
+      } else if (commitmentId) {
+        cy.log('Commitment ID:', { commitmentId });
+        cy.log('🔍 Searching by commitment ID: ' + commitmentId);
+
+        cy.get('table tbody tr').each(($row) => {
+          const text = $row.find('td').eq(2).text();
+          if (text.includes(`ID:${commitmentId}`)) {
+            cy.wrap($row).within(() => {
+              cy.contains('Authorize/Decline').click();
+            });
+            return false; // stop further iteration
+          }
+        });
+
+      } else if (collateralID) {
+        cy.log('🔍 Searching by collateral ID: ' + collateralID);
+
+        cy.get('table tbody tr').each(($row) => {
+          const text = $row.find('td').eq(2).text();
+          if (text.includes(`ID:${collateralID}`)) {
+            cy.wrap($row).within(() => {
+              cy.contains('Authorize/Decline').click();
+            });
+            return false; // stop further iteration
+          }
+        });
+
+      } else if (requisitionId) {
+        cy.log('requisition ID: ' + requisitionId);
+
+        cy.get('table tbody tr').each(($row) => {
+          const text = $row.find('td').eq(2).text().trim();
+
+          // Regex দিয়ে শেষের সংখ্যাটা বের করা
+          const match = text.match(/-(\d+)$/);
+          if (match) {
+            const remarkId = match[1];
+
+            if (remarkId === requisitionId) {
+              cy.wrap($row).within(() => {
+                cy.contains('Authorize/Decline').click();
+              });
+              return false; // stop iteration
+            }
+          }
+        });
+      }
+      else {
+        throw new Error("❌ No identifier (accountNumber or ID ) found in Cypress.env()");
       }
     });
 

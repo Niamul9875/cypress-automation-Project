@@ -1,21 +1,21 @@
 const { readExcelData } = require('../../support/readExcel.js'); // Node-style import
-import ERPLoginPage from '../../ERP/ERPLoginPage'; // ES Module import
+import ERPLoginPage from '../../ERP/EmployeeInfo/ERPLoginPage'; // ES Module import
 //import EmployeeDetails from '../../ERP/EmployeeDetailsPage'; // ES Module import
-import EmployeeInfo from '../../ERP/EmployeeInfoPage'; // ES Module import
-import OrganizationDetails from '../../ERP/OrganizationDetailsPage'; // ES Module import
-import AddtionalInfo from '../../ERP/AddtionalInfoPage'; // ES Module import
-import EducationalInfo from '../../ERP/EducationalInfoPage'; // ES Module import
-import JobExperience from '../../ERP/JobExperiencePage'; // ES Module import
-import Training from '../../ERP/TrainingPage'; // ES Module import   
-import Spouse from '../../ERP/SpousePage'; // ES Module import 
-import Children from '../../ERP/ChildrenPage'; // ES Module import
-import Nominee from '../../ERP/NomineePage'; // ES Module import
-import PhotoAndSignature from '../../ERP/PhotoAndSignaturePage'; // ES Module import
-import Relatives from '../../ERP/RelativesPage'; // ES Module import
-import Reference from '../../ERP/ReferencePage'; // ES Module import
-import Proficiency from '../../ERP/ProficiencyPage'; // ES Module import
-import Attachment from '../../ERP/AttachmentPage';
-import EmployeeList from '../../ERP/EmployeeListPage';
+import EmployeeInfo from '../../ERP/EmployeeInfo/EmployeeInfoPage'; // ES Module import
+import OrganizationDetails from '../../ERP/EmployeeInfo/OrganizationDetailsPage'; // ES Module import
+import AddtionalInfo from '../../ERP/EmployeeInfo/AddtionalInfoPage'; // ES Module import
+import EducationalInfo from '../../ERP/EmployeeInfo/EducationalInfoPage'; // ES Module import
+import JobExperience from '../../ERP/EmployeeInfo/JobExperiencePage'; // ES Module import
+import Training from '../../ERP/EmployeeInfo/TrainingPage'; // ES Module import   
+import Spouse from '../../ERP/EmployeeInfo/SpousePage'; // ES Module import 
+import Children from '../../ERP/EmployeeInfo/ChildrenPage'; // ES Module import
+import Nominee from '../../ERP/EmployeeInfo/NomineePage'; // ES Module import
+import PhotoAndSignature from '../../ERP/EmployeeInfo/PhotoAndSignaturePage'; // ES Module import
+import Relatives from '../../ERP/EmployeeInfo/RelativesPage'; // ES Module import
+import Reference from '../../ERP/EmployeeInfo/ReferencePage'; // ES Module import
+import Proficiency from '../../ERP/EmployeeInfo/ProficiencyPage'; // ES Module import
+import Attachment from '../../ERP/EmployeeInfo/AttachmentPage';
+import EmployeeList from '../../ERP/EmployeeInfo/EmployeeListPage';
 
 
 describe('Bank Ultimus', () => {

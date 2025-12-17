@@ -14,6 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+
 Cypress.on('uncaught:exception', (err, runnable) => {
     // prevent Cypress from failing the test on known app error
     if (err.message.includes("Cannot read properties of null (reading 'style')")) {

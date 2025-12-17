@@ -1,13 +1,13 @@
 
 
-import CandidateInfo from '../../ERP/CandidateInfoPage';
-import CandidateSpouse from '../../ERP/CandidateSpousePage';
-import CandidateChildren from '../../ERP/CandidateChildrenPage';
-import CandidateEducation from '../../ERP/CandidateEducationPage';
-import CandidateCareerinfo from '../../ERP/CandidateCareerinfoPage';
-import CandidateTraining from '../../ERP/CandidateTrainingPage';
-import CandidateReference from '../../ERP/CandidateReferencePage';
-import CandidateProficienty from '../../ERP/CandidateProficientyPage';
+import CandidateInfo from '../../ERP/EmployeeInfo/CandidateInfoPage';
+import CandidateSpouse from '../../ERP/EmployeeInfo/CandidateSpousePage';
+import CandidateChildren from '../../ERP/EmployeeInfo/CandidateChildrenPage';
+import CandidateEducation from '../../ERP/EmployeeInfo/CandidateEducationPage';
+import CandidateCareerinfo from '../../ERP/EmployeeInfo/CandidateCareerinfoPage';
+import CandidateTraining from '../../ERP/EmployeeInfo/CandidateTrainingPage';
+import CandidateReference from '../../ERP/EmployeeInfo/CandidateReferencePage';
+import CandidateProficienty from '../../ERP/EmployeeInfo/CandidateProficientyPage';
 
 
 import 'cypress-file-upload';
