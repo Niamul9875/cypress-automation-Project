@@ -73,11 +73,22 @@ class Lon_FinancialProposalRegister {
         //console.log('Product_Type:', product_type);
         cy.log('Product Type:', product_type);
 
-        // Check condition
+        // Check condition purpose_wise
         if (product_type === 'is_purpose_wise') {
             cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProposalTyp')
                 .focus()
                 .select(dataFinancialProposalRegister.Proposal_Type, { force: true });
+        }
+        // Check condition BankGuarantee
+        if (product_type === 'BankGuarantee') {
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProposalTyp')
+                .focus()
+                .select(dataFinancialProposalRegister.Proposal_Type, { force: true });
+            cy.wait(2000);
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlFundedFacility')
+                .focus()
+                .select(dataFinancialProposalRegister.Facility, { force: true });
+
         }
 
 
@@ -89,25 +100,44 @@ class Lon_FinancialProposalRegister {
         //     cy.log('Product from Excel:', JSON.stringify(dataFinancialProposalRegister.product));
         //     console.log('Product from Excel:', dataFinancialProposalRegister.product);
         // });
-        const product = String(dataFinancialProposalRegister.product).trim();
-        Cypress.env('product', product);
+        if (product_type === 'BankGuarantee') {
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCreditLineID')
+                .focus()
+                .select(dataFinancialProposalRegister.CreditLine, { force: true });
+            cy.wait(3000);
+            cy.get('#ctl00_contPlcHdrMasterHolder_LschkRevolvingLine').check({ force: true });
+            cy.wait(3000);
 
-        cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
-            .find('option')
-            .contains(product)   // partial match inside dropdown text
-            .then($option => {
-                const val = $option.attr('value');  // get the actual <option value="...">
-                cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
-                    .select(val, { force: true });
-            });
+        } else {
+            const product = String(dataFinancialProposalRegister.product).trim();
+            Cypress.env('product', product);
+
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
+                .find('option')
+                .contains(product)   // partial match inside dropdown text
+                .then($option => {
+                    const val = $option.attr('value');  // get the actual <option value="...">
+                    cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
+                        .select(val, { force: true });
+                });
+        }
+
 
         if (product_type === 'is_purpose_wise') {
             cy.get('#ctl00_contPlcHdrMasterHolder_LsddlPurposetypemap')
                 .focus()
                 .select(dataFinancialProposalRegister.Purpose_Map_Type, { force: true });
 
+        } else if (product_type === 'BankGuarantee') {
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlPurposetypemap')
+                .focus()
+                .select(dataFinancialProposalRegister.Purpose_Map_Type, { force: true });
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlBGProd')
+                .focus()
+                .select(dataFinancialProposalRegister.BGPorduct, { force: true });
 
         }
+
         cy.wait(3000);
 
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlApprovalAuthority')
@@ -131,43 +161,53 @@ class Lon_FinancialProposalRegister {
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlEnvironCategory').focus().select(dataFinancialProposalRegister.env_Category, { force: true });
         cy.get('#ctl00_contPlcHdrMasterHolder_LsddlRiskCategory').focus().select(dataFinancialProposalRegister.risk_Category, { force: true });
         cy.wait(3000);
-        cy.get('#ctl00_contPlcHdrMasterHolder_LsddlInterestRateType').focus().select(dataFinancialProposalRegister.int_Rate, { force: true });
-        cy.wait(3000);
-
-        const intRateType = String(dataFinancialProposalRegister.int_Rate).trim();
-
-        if (intRateType === "Term Deposit Rate +/- Spread") {
-            cy.get('#ctl00_contPlcHdrMasterHolder_LstxtRateIncreaseVariance')
-                .invoke('val')   // get the current value of the input
-                .then(val => {
-                    if (val) { // only type if there is a value 
-                        cy.get('#ctl00_contPlcHdrMasterHolder_LstxtFixedRateVarIncrese')
-                            .clear()
-                            .type(val, { force: true }).type('{enter}');
-                    }
-                });
+        if (product_type !== 'BankGuarantee') {
+            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlInterestRateType').focus().select(dataFinancialProposalRegister.int_Rate, { force: true });
+            cy.wait(3000);
         }
 
+
+
+
         cy.wait(3000);
 
-        if (product_type === 'is_purpose_wise') {
+        if (product_type === 'is_purpose_wise' || product_type === 'BankGuarantee') {
             cy.get('#ctl00_contPlcHdrMasterHolder_btnAdd').click();
             cy.wait(3000);
+            if (product_type === 'is_purpose_wise') {
 
-            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
-                .find('option')
-                .contains(product)   // partial match inside dropdown text
-                .then($option => {
-                    const val = $option.attr('value');  // get the actual <option value="...">
-                    cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
-                        .select(val, { force: true });
-                });
+                cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
+                    .find('option')
+                    .contains(product)   // partial match inside dropdown text
+                    .then($option => {
+                        const val = $option.attr('value');  // get the actual <option value="...">
+                        cy.get('#ctl00_contPlcHdrMasterHolder_LsddlProduct')
+                            .select(val, { force: true });
+                        cy.get('#ctl00_contPlcHdrMasterHolder_LsddlPurposetypemap')
+                            .focus()
+                            .select(dataFinancialProposalRegister.Purpose_Map_Type, { force: true });
+                        cy.wait(3000);
+                    });
+            } else {
+                cy.get('#ctl00_contPlcHdrMasterHolder_LsddlCreditLineID')
+                    .focus()
+                    .select(dataFinancialProposalRegister.CreditLine, { force: true });
+                cy.wait(3000);
+                cy.get('#ctl00_contPlcHdrMasterHolder_LschkRevolvingLine').check({ force: true });
+                cy.wait(3000);
+
+                cy.get('#ctl00_contPlcHdrMasterHolder_LsddlPurposetypemap')
+                    .focus()
+                    .select(dataFinancialProposalRegister.Purpose_Map_Type, { force: true });
+                cy.wait(3000);
+                cy.get('#ctl00_contPlcHdrMasterHolder_LsddlBGProd')
+                    .focus()
+                    .select(dataFinancialProposalRegister.BGPorduct, { force: true });
+
+            }
             cy.wait(3000);
 
-            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlPurposetypemap')
-                .focus()
-                .select(dataFinancialProposalRegister.Purpose_Map_Type, { force: true });
-            cy.wait(3000);
+
             cy.get('#ctl00_contPlcHdrMasterHolder_LsddlApprovalAuthority')
                 .contains('option', 'Branch Manager') // Partial text match
                 .then($option => {
@@ -197,9 +237,11 @@ class Lon_FinancialProposalRegister {
             cy.get('#ctl00_contPlcHdrMasterHolder_LsddlEnvironCategory').focus().select(dataFinancialProposalRegister.env_Category, { force: true });
             cy.get('#ctl00_contPlcHdrMasterHolder_LsddlRiskCategory').focus().select(dataFinancialProposalRegister.risk_Category, { force: true });
             cy.wait(3000);
-            cy.get('#ctl00_contPlcHdrMasterHolder_LsddlInterestRateType').focus().select(dataFinancialProposalRegister.int_Rate, { force: true });
-            cy.wait(3000);
-             cy.get('#ctl00_contPlcHdrMasterHolder_btnAdd').click();
+            if (product_type !== 'BankGuarantee') {
+                cy.get('#ctl00_contPlcHdrMasterHolder_LsddlInterestRateType').focus().select(dataFinancialProposalRegister.int_Rate, { force: true });
+                cy.wait(3000);
+            }
+            cy.get('#ctl00_contPlcHdrMasterHolder_btnAdd').click();
             cy.wait(3000);
         }
 
@@ -222,31 +264,31 @@ class Lon_FinancialProposalRegister {
         });
 
 
-        cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
+            cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
 
-        cy.get('.ui-state-focus > .ui-button-text').click();
+            cy.get('.ui-state-focus > .ui-button-text').click();
 
-        //cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
-        cy.get('.ui-dialog-content', { timeout: 10000 })  // বা popup এর selector যেটা ঠিক
-            .should('be.visible')
-            .invoke('text')
-            .then((text) => {
-                const match = text.match(/ID:\s*(\d+)/);
+            //cy.get('#ctl00_contPlcHdrMasterHolder_btnOk').click();
+            cy.get('.ui-dialog-content', { timeout: 10000 })  // বা popup এর selector যেটা ঠিক
+                .should('be.visible')
+                .invoke('text')
+                .then((text) => {
+                    const match = text.match(/ID:\s*(\d+)/);
 
-                if (match) {
-                    const proposalId = match[1];
-                    expect(proposalId).to.not.be.null;
-                    Cypress.env('proposalId', proposalId);
-                    cy.log('Proposal ID:', proposalId);
+                    if (match) {
+                        const proposalId = match[1];
+                        expect(proposalId).to.not.be.null;
+                        Cypress.env('proposalId', proposalId);
+                        cy.log('Proposal ID:', proposalId);
 
-                } else {
-                    throw new Error('❌ Proposal ID not found!');
-                }
-            });
+                    } else {
+                        throw new Error('❌ Proposal ID not found!');
+                    }
+                });
 
 
-        cy.wait(3000);
-        cy.get('.ui-button-text').click();
+            cy.wait(3000);
+            cy.get('.ui-button-text').click();
 
     }
 }

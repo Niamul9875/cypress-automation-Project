@@ -75,6 +75,13 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     return false; // Prevent Cypress from failing the test
   }
 });
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  if (err.message.includes('SetCursorToTextEnd')) {
+    return false; // prevent test failure
+  }
+});
+
 //
   
 
