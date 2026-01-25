@@ -1,4 +1,4 @@
-pipeline {
+lpipeline {
   agent any
 
   tools {
@@ -10,7 +10,7 @@ pipeline {
     REMOTE_FOLDER = 'gdrive:/BUltimus/'
     BUILD_FOLDER  = "Build_${BUILD_NUMBER}"
     VIDEO_DIR     = "${env.WORKSPACE}\\cypress\\videos"
-    EMAIL_TO      = 'aminur.rashid@leads-bd.com' 
+    EMAIL_TO      = 'mdniamulislamsimul@gmail.com' 
     EMAIL_FROM    = 'missiononemtwo@gmail.com'
   }
 
@@ -19,7 +19,7 @@ pipeline {
     stage('Checkout') {
       steps {
         git branch: 'main',
-            url: 'https://github.com/avisheak/BankUltimus_Automation.git'
+            url: 'https://github.com/Niamul9875/cypress-automation-Project'
       }
     }
 
