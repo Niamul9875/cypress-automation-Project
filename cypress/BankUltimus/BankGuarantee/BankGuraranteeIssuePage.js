@@ -45,7 +45,7 @@ class BankGuraranteeIssuePage {
         cy.get('#ctl00_contPlcHdrMasterHolder_LstxtMarginPct').clear();
         cy.get('#ctl00_contPlcHdrMasterHolder_LstxtMarginPct').type(dataBankGuraranteeIssue.Margin_Percentage);
         //cy.get('@ctl00_contPlcHdrMasterHolder_LstxtMarginPct').should('have.value', dataBankGuraranteeIssue.Margin_Percentage)
-        // cy.wait(3000);
+        // cy.wait(3000);33
         // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtMarginPaidPct').clear();
         // cy.get('#ctl00_contPlcHdrMasterHolder_LstxtMarginPaidPct').type(dataBankGuraranteeIssue.Margin_Paid);
         cy.wait(2000);
